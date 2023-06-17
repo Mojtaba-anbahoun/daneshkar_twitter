@@ -16,8 +16,8 @@ class User(models.Model):
         verbose_name=_("User_Name:"),
         max_length=150,
         unique=True,
-        blank=False
-        null=False
+        blank=False,
+        null=False,
         db_index=True,
         help_text=_("Username to login and show in the profile"),
     )
@@ -39,7 +39,7 @@ class User(models.Model):
 
 
     bio = models.TextField(_("Biography:"))
-    birth_date = models.DateField(_("Birth_date:"), null=True, blank=True)
+    birth_date = models.DateField(_("Birth_date:"), null=True, blank=True,)
     email = models.EmailField(
        verbose_name=_("Email"),
        unique=True,
