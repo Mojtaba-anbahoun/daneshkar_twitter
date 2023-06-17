@@ -15,12 +15,7 @@ class Post(TimeStampMixin, BaseModel):
         on_delete=models.CASCADE,
         related_name = "posts",
     )
-    image_url = models.ImageField(
-        verbose_name= _("Image:"),
-        upload_to="images_file",
-        null=True,
-        blank=True,
-    )
+    
     
 class Tag(models.Model):
     text = models.CharField(max_length=15)
@@ -32,7 +27,8 @@ class Image(models.Model):
     post = models.ForeignKey(Post , related_name="images", on_delete=models.CASCADE)
 
 
-class Comment(models.Model):
+
+class Comment(TimeStampMixin):
     text = models.CharField(max_length=200)
     user = models.ForeignKey("accounts.User", on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
@@ -44,7 +40,13 @@ class Comment(models.Model):
 #    post = models.ForeignKey(Post, on_delete=models.CASCADE)
 
 
-
+class Category(models.Model):
+    name = models.CharField(max_length=100)
+    slug = models.SlugField(
+        verbose_name=_("Slug"),
+        unique=True,
+        db_index=True,
+    )
 
 
 

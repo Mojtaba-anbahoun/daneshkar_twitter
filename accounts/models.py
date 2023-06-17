@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User, AbstractUser, AbstractBaseUser
 from django.utils.translation import gettext as _
+from core.models import BaseModel, TimeStampMixin
 
 # Create your models here.
 
@@ -47,3 +48,6 @@ class User(models.Model):
     join_date = models.DateTimeField(_("Join_date:"))
 
 
+class Relation(TimeStampMixin):
+    from_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="followings")
+    to_user = models.ForeignKey(User , on_delete=models.CASCADE, related_name="followers")
