@@ -34,17 +34,17 @@ class Image(models.Model):
 
 class Comment(models.Model):
     text = models.CharField(max_length=200)
-    user = models.ForeignKey("accounts.User")
-    post = models.ForeignKey(Post)
-    reply_to = models.ForeignKey("self", blank=True, null=True)
+    user = models.ForeignKey("accounts.User", on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    reply_to = models.ForeignKey("self", blank=True, null=True , on_delete=models.CASCADE)
 
 
-class Reaction(BaseModel):
-    user = models.ForeignKey("accounta.User")
-    post = models.ForeignKey(Post)
+#class Reaction(BaseModel):
+#    user = models.ForeignKey("accounts.User", on_delete=models.CASCADE)
+#    post = models.ForeignKey(Post, on_delete=models.CASCADE)
 
 
-    
+
 
 
 

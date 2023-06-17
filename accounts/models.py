@@ -23,8 +23,7 @@ class User(models.Model):
     )
 
     password = models.IntegerField(
-        vebose_name=_("Password:"),
-        max_length=128,
+        verbose_name=_("Password:"),
         help_text=_("Password to login"),
         blank=False,
         null=False,
