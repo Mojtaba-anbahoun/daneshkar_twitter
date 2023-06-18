@@ -15,6 +15,9 @@ class Post(TimeStampMixin, BaseModel):
         on_delete=models.CASCADE,
         related_name = "posts",
     )
+    category = models.ForeignKey("Category" , on_delete=models.CASCADE, related_name="categories"
+
+    )    
     
     
 class Tag(models.Model):
@@ -23,6 +26,8 @@ class Tag(models.Model):
 
 
 class Image(models.Model):
+    name = models.CharField(verbose_name=_("Name"), max_length=30)
+    alt = models.CharField(verbose_name=_("Alternative text"), max_length=30)
     image = models.FileField(upload_to="uploads/images/")
     post = models.ForeignKey(Post , related_name="images", on_delete=models.CASCADE)
 
@@ -33,6 +38,13 @@ class Comment(TimeStampMixin):
     user = models.ForeignKey("accounts.User", on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     reply_to = models.ForeignKey("self", blank=True, null=True , on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = _("Comment")
+        verbose_name_plural = _("Comments")
+
+    def __str__(self):
+        return f'comment on {self.user}'
 
 
 #class Reaction(BaseModel):
