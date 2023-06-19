@@ -53,7 +53,7 @@ class Image(models.Model):
         return self.name
 
 
-class Comment(TimeStampMixin):
+class Comment(models.Model):
     text = models.CharField(max_length=200)
     user = models.ForeignKey("accounts.User", on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
@@ -71,6 +71,12 @@ class Comment(TimeStampMixin):
 #    user = models.ForeignKey("accounts.User", on_delete=models.CASCADE)
 #    post = models.ForeignKey(Post, on_delete=models.CASCADE)
 
+#    class Meta:
+#        verbose_name = _("Reaction")
+#        verbose_name_plural = _("Reactions")
+
+#    def __str__(self):
+#        return self.user
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
@@ -79,7 +85,6 @@ class Category(models.Model):
         unique=True,
         db_index=True,
     )
-
     class Meta:
         verbose_name = _("Category")
         verbose_name_plural = _("Categories")
