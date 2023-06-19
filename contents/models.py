@@ -18,6 +18,10 @@ class Post(TimeStampMixin, BaseModel):
     category = models.ForeignKey("Category" , on_delete=models.CASCADE, related_name="categories", default=None)
 
 
+    def is_liked_by_user(self, user) -> bool:
+        return self.reaction_set.filter(user=user).exists()
+
+
     class Meta:
         verbose_name = _("Post")
         verbose_name_plural = _("Posts")
@@ -67,16 +71,16 @@ class Comment(models.Model):
         return self.user
 
 
-#class Reaction(BaseModel):
-#    user = models.ForeignKey("accounts.User", on_delete=models.CASCADE)
-#    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+class Reaction(BaseModel, TimeStampMixin):
+    user = models.ForeignKey("accounts.User", on_delete=models.CASCADE)
+    post_field = models.ForeignKey(Post, verbose_name= _("Post"), on_delete=models.CASCADE)
 
-#    class Meta:
-#        verbose_name = _("Reaction")
-#        verbose_name_plural = _("Reactions")
+    class Meta:
+        verbose_name = _("Reaction")
+        verbose_name_plural = _("Reactions")
 
-#    def __str__(self):
-#        return self.user
+    def __str__(self):
+        return self.user
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
