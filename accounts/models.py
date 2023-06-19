@@ -47,7 +47,21 @@ class User(models.Model):
   
     join_date = models.DateTimeField(_("Join_date:"))
 
+    class Meta:
+        verbose_name = _("User")
+        verbose_name_plural = _("Users")
+
+    def __str__(self):
+        return self.name
+
 
 class Relation(TimeStampMixin):
     from_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="followings")
     to_user = models.ForeignKey(User , on_delete=models.CASCADE, related_name="followers")
+
+    class Meta:
+        verbose_name = _("Relation")
+        verbose_name_plural = _("Relations")
+
+    def __str__(self):
+        return self.name

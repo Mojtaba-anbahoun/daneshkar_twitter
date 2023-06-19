@@ -64,7 +64,7 @@ class Comment(TimeStampMixin):
         verbose_name_plural = _("Comments")
 
     def __str__(self):
-        return f'comment on {self.user}'
+        return self.user
 
 
 #class Reaction(BaseModel):
