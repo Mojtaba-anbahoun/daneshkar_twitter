@@ -12,7 +12,7 @@ class PostAdmin(admin.ModelAdmin):
 
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
-    list_display = ['id', 'text', 'posts']
+    list_display = ['id', 'text']
     search_fields = ['text']
     list_filter = ['posts']
 
@@ -24,11 +24,11 @@ class ImageAdmin(admin.ModelAdmin):
     list_filter = ['post']
 
 
-@admin.register(Comment)
-class CommentAdmin(admin.ModelAdmin):
-    list_display = ['id', 'text', 'user', 'post', 'reply_to']
-    search_fields = ['user']
-    list_filter = ['post']
+#@admin.register(Comment)
+#class CommentAdmin(admin.ModelAdmin):
+#    list_display = ['id', 'text', 'user', 'post', 'reply_to']
+#    search_fields = ['user']
+#    list_filter = ['post']
 
 
 @admin.register(Category)
