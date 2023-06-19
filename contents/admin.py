@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, Tag , Image, Comment, Category
+from .models import Post, Tag , Image, Comment, Category , Reaction
 # Register your models here.
 
 
@@ -43,11 +43,11 @@ class CategoryAdmin(admin.ModelAdmin):
     list_filter = ['name']
 
 
-#@admin.register(Reaction)
-#class ReactionAdmin(admin.ModelAdmin):
-#    list_display = ['id', 'user', 'post']
-#    search_fields = ['user', 'post']
-#    list_filter = ['user', 'post']
+@admin.register(Reaction)
+class ReactionAdmin(admin.ModelAdmin):
+    list_display = ['id', 'user', 'post_field']
+    search_fields = ['user', 'post_field']
+    list_filter = ['user', 'post_field']
 
 
 
