@@ -3,11 +3,16 @@ from .models import Post, Tag , Image, Comment, Category
 # Register your models here.
 
 
+class PostImageInline(admin.TabularInline):
+    model = Image
+    extra = 1
+
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     list_display = ['id', 'title', 'user', 'category' , 'body']
     search_fields = ['category', 'user']
     list_filter = ['category', 'user']
+    inlines = [PostImageInline]
 
 
 @admin.register(Tag)
