@@ -58,4 +58,4 @@ class Relation(TimeStampMixin):
         verbose_name_plural = _("Relations")
 
     def __str__(self):
-        return self.name
+        return self.from_user
