@@ -21,6 +21,28 @@ class Post(TimeStampMixin, BaseModel):
     def is_liked_by_user(self, user) -> bool:
         return self.reaction_set.filter(user=user).exists()
 
+    def add_like(self, user):
+        return Reaction.objects.create(user=user, post=self)
+    
+    def remove_like(self, user):
+        like = Reaction.objects.get(user=user, post=self)
+        return like
+
+    def add_comment(self, user, text):
+        return Comment.objects.create(user=user, post=self, text=text)
+    
+    def get_comments(self):
+        return Comment.objects.filter(post=self)
+    
+    def delete_comments(self):
+        Comment.objects.filter(post=self).delete()
+
+    def get_likes_count(self):
+        return Reaction.objects.filter(post=self).count()
+    
+    def get_comments_count(self):
+        return Comment.objects.filter(post=self).count()
+    
 
     class Meta:
         verbose_name = _("Post")
@@ -63,6 +85,16 @@ class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     reply_to = models.ForeignKey("self", blank=True, null=True , on_delete=models.CASCADE)
 
+    def get_replies(self):
+        return Comment.objects.filter(reply_to=self)
+
+    def edit_comment(self, new_text):
+        self.text = new_text
+        self.save()
+    
+    def delete_comment(self):
+        self.delete()
+
     class Meta:
         verbose_name = _("Comment")
         verbose_name_plural = _("Comments")
@@ -74,6 +106,9 @@ class Comment(models.Model):
 class Reaction(BaseModel, TimeStampMixin):
     user = models.ForeignKey("accounts.User", on_delete=models.CASCADE)
     post_field = models.ForeignKey(Post, verbose_name= _("Post"), on_delete=models.CASCADE)
+
+    def unlike(self):
+        self.delete()
 
     class Meta:
         verbose_name = _("Reaction")
