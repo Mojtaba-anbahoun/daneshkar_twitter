@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User, AbstractUser, AbstractBaseUser
 from django.utils.translation import gettext as _
 from core.models import BaseModel, TimeStampMixin
+from contents.models import Post, Reaction
+
 
 # Create your models here.
 
@@ -40,6 +42,25 @@ class User(models.Model):
        unique=True,
     )
     join_date = models.DateTimeField(_("Join_date:"))
+
+
+    def get_following(self):
+        return self.following.all()
+    
+    def get_followers(self):
+        return self.followers.all()
+    
+    def create_post(self, title, image):
+        return Post.objects.create(user=self, title=title, image=image)
+    
+    def like_post(self, post):
+        Reaction.objects.create(user=self, post=post)
+
+    def unlike_post(self, post):
+        like = Reaction.objects.filter(user=self, post=post).first()
+        if like:
+            like.delete()
+
 
     class Meta:
         verbose_name = _("User")
