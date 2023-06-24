@@ -1,9 +1,8 @@
 from django.db import models
-from django.contrib.auth.models import User, AbstractUser, AbstractBaseUser
+from django.contrib.auth.models import User, AbstractUser
 from django.utils.translation import gettext as _
-from core.models import BaseModel, TimeStampMixin
+from core.models import BaseModel
 from contents.models import Post, Reaction
-
 
 # Create your models here.
 
@@ -23,9 +22,10 @@ class User(models.Model):
         db_index=True,
         help_text=_("Username to login and show in the profile"),
     )
-    password = models.IntegerField(
+    password = models.CharField(
         verbose_name=_("Password:"),
         help_text=_("Password to login"),
+        max_length=150,
         blank=False,
         null=False,
     )
@@ -42,7 +42,7 @@ class User(models.Model):
        unique=True,
     )
     join_date = models.DateTimeField(_("Join_date:"))
-
+    age = models.PositiveIntegerField(blank=True, null=True)
 
     def get_following(self):
         return self.following.all()
@@ -61,6 +61,13 @@ class User(models.Model):
         if like:
             like.delete()
 
+    @property
+    def followers_count(self):
+        return self.followers.count()
+    
+    @property
+    def followings_count(self):
+        return self.followings.count()
 
     class Meta:
         verbose_name = _("User")
@@ -70,13 +77,15 @@ class User(models.Model):
         return self.name
 
 
-class Relation(TimeStampMixin):
-    from_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="followings")
-    to_user = models.ForeignKey(User , on_delete=models.CASCADE, related_name="followers")
+class Relation(models.Model):
+
+    from_user = models.ForeignKey(User,
+                                  on_delete=models.CASCADE,
+                                  related_name="followings")
+    to_user = models.ForeignKey(User,
+                                on_delete=models.CASCADE,
+                                related_name="followers")
 
     class Meta:
         verbose_name = _("Relation")
         verbose_name_plural = _("Relations")
-
-    def __str__(self):
-        return self.from_user

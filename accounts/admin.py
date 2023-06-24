@@ -6,12 +6,12 @@ from .models import User , Relation
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ['id', 'full_name', 'user_name', 'email' , 'bio', 'birth_date', 'join_date']
+    list_display = ['id', 'full_name', 'user_name', 'email' , 'bio', 'birth_date']
     search_fields = ['user_name', 'email']
     list_filter = ['user_name', 'email']
 
-#@admin.register(Relation)
-#class RelationAdmin(admin.ModelAdmin):
-#    list_display = ['id', 'from_user', 'to_user']
-#    search_fields = ['from_user', 'to_user']
-#    list_filter = ['from_user', 'to_user']
+@admin.register(Relation)
+class RelationAdmin(admin.ModelAdmin):
+    list_display = ['id', 'from_user', 'to_user']
+    search_fields = ['from_user', 'to_user']
+    list_filter = ['from_user', 'to_user']

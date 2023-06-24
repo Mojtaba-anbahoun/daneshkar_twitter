@@ -27,11 +27,7 @@ class SoftDeleteModel(BaseModel):
 
 
     class Meta:
-        verbose_name = _("")
-        verbose_name_plural = _("s")
-
-    def __str__(self):
-        return self.name
+        abstract = True
     
 class TimeStampMixin:
     created_at = models.DateTimeField(auto_now_add=True)
