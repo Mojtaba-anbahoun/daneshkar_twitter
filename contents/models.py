@@ -100,7 +100,7 @@ class Comment(models.Model):
         verbose_name_plural = _("Comments")
 
     def __str__(self):
-        return self.user
+        return self.text
 
 
 class Reaction(BaseModel, TimeStampMixin):

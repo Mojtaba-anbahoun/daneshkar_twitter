@@ -74,7 +74,7 @@ class User(models.Model):
         verbose_name_plural = _("Users")
 
     def __str__(self):
-        return self.name
+        return self.user_name
 
 
 class Relation(models.Model):
@@ -89,3 +89,6 @@ class Relation(models.Model):
     class Meta:
         verbose_name = _("Relation")
         verbose_name_plural = _("Relations")
+    
+    def __str__(self):
+        return self.from_user

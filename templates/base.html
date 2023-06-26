@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    
+    
+    
+</head>
+<body>
+    {% for post in posts%}
+        <h3> {{post.title}} </h3>
+        <div> {{post.body}} </div>
+        <small> {{post.user}} </small>
+        <div> {{post.image}} </div>
+
+
+
+    {% endfor%}
+
+</body>
+</html>
