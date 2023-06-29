@@ -25,7 +25,6 @@ class SoftDeleteModel(BaseModel):
         self.is_deleted = True
         self.save()
 
-
     class Meta:
         abstract = True
     
