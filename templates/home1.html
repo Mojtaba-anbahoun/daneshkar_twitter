@@ -1,0 +1,11 @@
+{% extends 'home.html' %}
+
+
+    {% for post in posts %}
+        <div class = "home-posts">
+            <a class="home-post" href="#">{{ post.title }}</a>
+        </div>
+    {% endfor%}
+
+
+
